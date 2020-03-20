@@ -1,0 +1,110 @@
+import numpy as np
+import random
+import timeit
+print('Алгоритм прямого пошуку підрядка')
+text = 'Цей алгоритм працює досить ефективно'
+pattern = str(input('Введіть шуканий елемент : '))
+i = -1
+j = 0
+while (j < len(pattern)) and i < (len(text) - len(pattern)): # поки j меньше за довжину шуканого слова, та i меньше за довжину всього тексту + довжину шуканого слова
+    j = 0
+    i += 1
+    while j < len(pattern) and pattern[j] == text[i + j]:  # поки довжина шуканого ел. більша за j і буква шуканого ел. дорівнює букві в слові
+        j += 1                                             # тоді j тобто індекс букви в слові, збільшуеться на один
+if j == len(pattern):                                      # якщо j == довжені слова, то елемена немає
+    print('Підрядок знайдений в позиції',i)
+else:
+    print('Елемент не знайдений.')
+time = timeit.timeit(number=10000)                           # Скільки працювала программа
+print('Программа працювала: ',time,' секунди')
+
+
+
+print()
+print('Бінарний пошук')
+n = int(input('Введіть кількість цифр в послідовності'))
+e = int(input('Введіть шукану цифру'))
+p = np.zeros(n, dtype=int)                                  # масив, всі значення нулі
+for i in range(n):
+    p[i] = random.randint(0, 9)                             # рандомно забили в масив значення від 0 до 9
+print('Не сортована послідовніть',p)
+p.sort()                                                    # сортуєм, так як це бінарний пошук
+print('Сортована послідовність',p)
+mid = len(p) // 2                                           # визначаємо центр в масиві
+low = 0
+high = len(p) - 1
+while p[mid] != e and low <= high:   # поки не знайшли елемент, або поки не переберемо всі елементи, цикл буде працювати
+    if e > p[mid]:
+        low = mid + 1       # якщо шуканий ел. більше центрального ел. тоді low = центральний елемент зміщенний праворуч
+    else:
+        high = mid - 1                                      # в іншому випадку, high = центральний ел. зміщений ліворуч
+    mid = (low + high) // 2                                 # шукаємо новий центр нашого масиву
+if low > high:
+    print('Елемент не знайдений')
+else:
+    print('Елемент знайдений під індексом: ', mid)
+time = timeit.timeit(number=10000)                          # час за який программа впоралася
+print('Программа працювала: ',time,' секунди')
+
+
+
+
+print()
+print('Лінійний пошук')
+n = int(input('Введіть кількість цифр в послідовності'))
+e = int(input('Введіть шукану цифру'))
+p = np.zeros(n, dtype=int)                                  # масив, всі значення нулі
+for i in range(n):
+    p[i] = random.randint(0, 9)                             # генеруємо значення, від 0 до 9
+print(p)
+k = 0
+while k < len(p) and p[k] != e:                             # з ліва на право, по черзі, перевіряємо кожен елемент
+    k += 1
+if k == len(p):                                             # якщо к-сть спроб дорівнює к-сті елементів, тоді ел. немає
+    print('Елемент не знайдений')
+else:
+    print('Елемент знайдений на позиції: ',k)
+time = timeit.timeit(number=10000)                          # час за який программа впоралася
+print('Программа працювала: ',time,' секунди')
+
+
+
+
+a = int(input())
+n = np.zeros((a), dtype=int)
+for i in range(a):
+    n[i] = int(input())
+print(n)
+print(n[::-1])
+
+
+
+n = np.zeros((3,3), dtype=int)
+for i in range(3):
+    for j in range(3):
+        n[i,j] = int(input())
+print(n)
+
+
+
+
+n = np.zeros((3,3), dtype=int)
+m = np.zeros((3,3), dtype=int)
+for i in range(3):
+    for j in range(3):
+        n[i,j] = int(input())
+for k in range(3):
+    for l in range(3):
+        m[k,l] = int(input())
+c = np.dot(n,m)
+print(c)
+
+
+
+n = np.zeros((4,4), dtype=int)
+for i in range(4):
+    for j in range(4):
+        n[i,j] = int(input())
+        if n[i,j] < 0:
+            n[i,j] = 0
+print(n)
